@@ -6,7 +6,8 @@ const Property = require('./models/Property');
 
 const seedData = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/rental-platform');
+    const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/rental-platform';
+    await mongoose.connect(mongoUri);
     console.log('Connected to MongoDB');
 
     // Get or create user
