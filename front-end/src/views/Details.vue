@@ -455,7 +455,8 @@ const getImageUrl = (image) => {
   if (!image) return '';
   const path = typeof image === 'string' ? image : image.path;
   if (path.startsWith('http')) return path;
-  return `http://localhost:9000${path}`;
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:9000';
+  return `${baseUrl}${path}`;
 };
 
 // Format price

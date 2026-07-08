@@ -43,6 +43,14 @@ const corsOptions = {
     if (origin.match(/^http:\/\/localhost:\d+$/)) {
       return callback(null, true);
     }
+    // Allow the production frontend URL
+    if (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL) {
+      return callback(null, true);
+    }
+    // Allow Vercel preview deployments automatically
+    if (origin.endsWith('.vercel.app')) {
+      return callback(null, true);
+    }
     callback(new Error('Not allowed by CORS'));
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
