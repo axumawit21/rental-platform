@@ -240,7 +240,7 @@ const loadUserData = async () => {
       email: userData.email || '',
       phone: userData.phone || '',
       bio: userData.bio || '',
-      photoUrl: userData.photo ? `http://localhost:5000/uploads/users/${userData.photo}` : ''
+      photoUrl: userData.photo ? `http://localhost:9000/uploads/users/${userData.photo}` : ''
     };
   } catch (error) {
     console.error('Failed to load user data:', error);

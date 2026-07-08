@@ -318,8 +318,8 @@ const fetchProperty = async () => {
   try {
     loading.value = true;
     const [propertyRes, similarRes] = await Promise.all([
-      axios.get(`http://localhost:5000/api/properties/${route.params.id}`),
-      axios.get('http://localhost:5000/api/properties')
+      axios.get(`http://localhost:9000/api/properties/${route.params.id}`),
+      axios.get('http://localhost:9000/api/properties')
     ]);
     
     // Log the property data to check its structure
@@ -455,7 +455,7 @@ const getImageUrl = (image) => {
   if (!image) return '';
   const path = typeof image === 'string' ? image : image.path;
   if (path.startsWith('http')) return path;
-  return `http://localhost:5000${path}`;
+  return `http://localhost:9000${path}`;
 };
 
 // Format price

@@ -291,7 +291,7 @@ const fetchProperties = async () => {
       ...property,
       // Use the first image as the main image, or a placeholder if no images
       image: property.images && property.images.length > 0 
-        ? `http://localhost:5000${property.images[0].path}` 
+        ? getImageUrl(property.images[0])
         : 'https://via.placeholder.com/400x300?text=No+Image',
       // Create a location string from the address
       location: property.address ? 
@@ -414,15 +414,16 @@ const getImageUrl = (image) => {
   // Handle both string paths and image objects
   const path = typeof image === 'string' ? image : image.path;
   if (path.startsWith('http')) return path;
-  return `http://localhost:5000${path}`;
+  return `http://localhost:9000${path}`;
 };
 
+// Handle image loading errors - show placeholder instead of hiding
 const handleImageError = (event, property) => {
-  console.error('Image failed to load:', event);
-  // Hide the broken image and let the v-else content show
   const imgElement = event.target;
-  if (imgElement && imgElement.parentNode) {
-    imgElement.style.display = 'none';
+  if (imgElement) {
+    imgElement.src = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect fill="%23e2e8f0" width="400" height="300"/><text x="200" y="140" text-anchor="middle" fill="%2394a3b8" font-family="Arial" font-size="16">No Image Available</text><path d="M180 170 L200 190 L220 175 L240 200 L160 200 Z" fill="%2394a3b8" opacity="0.5"/><circle cx="185" cy="155" r="8" fill="%2394a3b8" opacity="0.5"/></svg>');
+    imgElement.style.objectFit = 'cover';
+    imgElement.onerror = null;
   }
 }
 </script>

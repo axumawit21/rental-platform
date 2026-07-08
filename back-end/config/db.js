@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect('mongodb://localhost:27017/rental-platform', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       // Remove the following options as they are no longer needed in newer Mongoose versions
       // useCreateIndex: true,
       // useFindAndModify: false,
